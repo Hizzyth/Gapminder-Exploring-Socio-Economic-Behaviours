@@ -1,0 +1,20 @@
+Site: 
+https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups
+
+
+Information: 
+For the current 2018 fiscal year, low-income economies are defined as those with a GNI per capita, calculated using the World Bank Atlas method, of $1,005 or less in 2016; 
+lower middle-income economies are those with a GNI per capita between $1,006 and $3,955; 
+upper middle-income economies are those with a GNI per capita between $3,956 and $12,235; 
+high-income economies are those with a GNI per capita of $12,236 or more.
+
+
+
+
+Appendix:
+Later to sort the data - 
+
+oil_trend_proven_sorted = oil_trend_gni.sort_values(by='oil_proven', ascending = False)
+oil_trend_proven_sorted.head()
+
+oil_trend_gni.set_index('Country', inplace= True)

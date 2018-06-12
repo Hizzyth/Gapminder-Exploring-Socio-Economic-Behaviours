@@ -1,0 +1,1881 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{investigate-a-dataset-Gapminder\_V3}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Project: Investigate a Dataset (Gapminder: Exploring
+Socio-Economic
+Behaviours!)}\label{project-investigate-a-dataset-gapminder-exploring-socio-economic-behaviours}
+
+\subsection{Table of Contents}\label{table-of-contents}
+
+Introduction
+
+Data Wrangling
+
+Exploratory Data Analysis
+
+Conclusions
+
+     \#\# Introduction
+
+I first came across Gapminder in 2010 when I checked out Hans Rosling's
+TED talk "The seemingly impossible is possible". Watching that talk
+changed the way I looked at data ever since that day.
+
+This project is split into 2 very different topics: Case-1: \textbf{Oil
+Economics} ( Reservoir Size, Production, Consumption and Gross Net
+Income Trends) Case-2: \textbf{Smoking Behaviours} among different
+society classes.
+
+For the \textbf{Case-1}, I will explore: 1. Which nations are top
+consumers, producers and owners of proven oil reservoirs? 2.
+Distribution of consumption ratio (Consume/Produce) with production
+trends. 3. How nations Gross Net Income (GNI)based on their consumption
+trend (exporter/importer)?
+
+For the \textbf{Case-2}, I will explore: 1. Comparision between female
+and male smokers across all countries. 2. How does the smoking
+population split among various groups of society
+(lower,lower\_middle,lower\_upper,higher) 3. Relationships between per
+capita income and smoking behaviours 4. Does life expectancy changes
+with income, if yes then how big is gap among lowest and highest
+classes?
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{} Importing libraries to be used}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\end{Verbatim}
+
+
+     \# Data Wrangling
+
+\subsection{General Properties}\label{general-properties}
+
+    \subsubsection{Loading the excel files}\label{loading-the-excel-files}
+
+    All excel files are loaded using pandas 'read\_excel' version. Short
+notes are provided at end of each line providing context of data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Load the data}
+        \PY{n}{oil\PYZus{}prod} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oil Production.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}total production of oil}
+        \PY{n}{oil\PYZus{}proven} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oil Proved reserves.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} total proven reserves of oil}
+        \PY{n}{oil\PYZus{}consume} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oil Consumption.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}consumtion of oil}
+        \PY{n}{gni} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indicatorGNItotalPPP.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Total gross net income converted to international dollars using purchasing power parity rates.}
+        \PY{n}{gnipc} \PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indicatorGNIpercapitaATLAS.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Gross net income per capita, Atlas method (current US\PYZdl{}) }
+        \PY{n}{life\PYZus{}exp} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indicator life\PYZus{}expectancy\PYZus{}at\PYZus{}birth.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} Life expectancy in years}
+        \PY{n}{smk\PYZus{}female} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indicator\PYZus{}prevalence of current tobacco use among adults (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{) female.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}female smokers in \PYZpc{}}
+        \PY{n}{smk\PYZus{}male} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}excel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{indicator\PYZus{}prevalence of current tobacco use among adults (}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{) male.xlsx}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{sheet\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{}male smokers in \PYZpc{}               }
+\end{Verbatim}
+
+
+    \subsubsection{Exploring the data and its properties prior to
+cleaning}\label{exploring-the-data-and-its-properties-prior-to-cleaning}
+
+    \subsection{Case-1: Oil Reservoir,Production \& Consumption trends. Also
+how GNI of oil producing nations
+appears.}\label{case-1-oil-reservoirproduction-consumption-trends.-also-how-gni-of-oil-producing-nations-appears.}
+
+    \paragraph{Utilizing the head, info, dtypes and histograms to get a good
+idea of dataset and plan accordingly for cleaning the
+data.}\label{utilizing-the-head-info-dtypes-and-histograms-to-get-a-good-idea-of-dataset-and-plan-accordingly-for-cleaning-the-data.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Checking the first 5 rows for each dataset}
+        \PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Expected to see a lot of null values, as many countries are not oil producers}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}   Crude oil production, total (toe)        1965        1966        1967  \textbackslash{}
+        0                          Abkhazia         NaN         NaN         NaN   
+        1                       Afghanistan         NaN         NaN         NaN   
+        2             Akrotiri and Dhekelia         NaN         NaN         NaN   
+        3                           Albania         NaN         NaN         NaN   
+        4                           Algeria  26481000.0  33872000.0  39076000.0   
+        
+                 1968        1969        1970        1971        1972        1973  \textbackslash{}
+        0         NaN         NaN         NaN         NaN         NaN         NaN   
+        1         NaN         NaN         NaN         NaN         NaN         NaN   
+        2         NaN         NaN         NaN         NaN         NaN         NaN   
+        3         NaN         NaN         NaN         NaN         NaN         NaN   
+        4  42904000.0  44784000.0  48208000.0  37099000.0  50098000.0  50888000.0   
+        
+               {\ldots}             2002        2003        2004        2005        2006  \textbackslash{}
+        0      {\ldots}              NaN         NaN         NaN         NaN         NaN   
+        1      {\ldots}              NaN         NaN         NaN         NaN         NaN   
+        2      {\ldots}              NaN         NaN         NaN         NaN         NaN   
+        3      {\ldots}              NaN         NaN         NaN         NaN         NaN   
+        4      {\ldots}       70894000.0  79005000.0  83551000.0  86437670.0  86202000.0   
+        
+                 2007          2008          2009          2010          2011  
+        0         NaN           NaN           NaN           NaN           NaN  
+        1         NaN           NaN           NaN           NaN           NaN  
+        2         NaN           NaN           NaN           NaN           NaN  
+        3         NaN           NaN           NaN           NaN           NaN  
+        4  86482000.0  8.562018e+07  7.784691e+07  7.550114e+07  7.431146e+07  
+        
+        [5 rows x 48 columns]
+\end{Verbatim}
+            
+    \paragraph{Since all the files have 1st column named with file
+description, replacing the column 1 name with country
+name}\label{since-all-the-files-have-1st-column-named-with-file-description-replacing-the-column-1-name-with-country-name}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Replacing the column 1 name with country name}
+        \PY{n}{oil\PYZus{}prod} \PY{o}{=} \PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+        \PY{n}{oil\PYZus{}proven} \PY{o}{=} \PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+        \PY{n}{oil\PYZus{}consume} \PY{o}{=} \PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+        \PY{n}{gni} \PY{o}{=} \PY{n}{gni}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{gni}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+\end{Verbatim}
+
+
+    Checking the data types and empty cells for each column
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 275 entries, 0 to 274
+Data columns (total 48 columns):
+Country    275 non-null object
+1965       36 non-null float64
+1966       37 non-null float64
+1967       37 non-null float64
+1968       39 non-null float64
+1969       39 non-null float64
+1970       39 non-null float64
+1971       40 non-null float64
+1972       42 non-null float64
+1973       42 non-null float64
+1974       42 non-null float64
+1975       42 non-null float64
+1976       42 non-null float64
+1977       42 non-null float64
+1978       42 non-null float64
+1979       42 non-null float64
+1980       42 non-null float64
+1981       43 non-null float64
+1982       43 non-null float64
+1983       43 non-null float64
+1984       43 non-null float64
+1985       43 non-null float64
+1986       44 non-null float64
+1987       45 non-null float64
+1988       45 non-null float64
+1989       45 non-null float64
+1990       45 non-null float64
+1991       45 non-null float64
+1992       46 non-null float64
+1993       47 non-null float64
+1994       47 non-null float64
+1995       47 non-null float64
+1996       47 non-null float64
+1997       47 non-null float64
+1998       47 non-null float64
+1999       47 non-null float64
+2000       47 non-null float64
+2001       47 non-null float64
+2002       47 non-null float64
+2003       48 non-null float64
+2004       48 non-null float64
+2005       48 non-null float64
+2006       48 non-null float64
+2007       48 non-null float64
+2008       48 non-null float64
+2009       48 non-null float64
+2010       48 non-null float64
+2011       48 non-null float64
+dtypes: float64(47), object(1)
+memory usage: 103.2+ KB
+
+    \end{Verbatim}
+
+    Quick view histogram analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Exploring data with histogram.}
+        \PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{figsize}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+        \PY{c+c1}{\PYZsh{}production data is right skewed, most nations are non\PYZhy{}oil producing.}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Describe to get overview of data
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}                1965          1966          1967          1968          1969  \textbackslash{}
+        count  3.600000e+01  3.700000e+01  3.700000e+01  3.900000e+01  3.900000e+01   
+        mean   3.594683e+07  3.797267e+07  4.064622e+07  4.224891e+07  4.560825e+07   
+        std    7.897325e+07  8.259329e+07  8.808066e+07  9.054929e+07  9.323808e+07   
+        min    0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00   
+        25\%    5.984453e+05  6.310000e+05  1.723000e+06  1.337784e+06  2.341805e+06   
+        50\%    8.663003e+06  7.562912e+06  8.850564e+06  8.577000e+06  1.123391e+07   
+        75\%    2.502170e+07  2.392946e+07  2.574689e+07  2.725296e+07  3.070951e+07   
+        max    4.276871e+08  4.545269e+08  4.842091e+08  5.028932e+08  5.113680e+08   
+        
+                       1970          1971          1972          1973          1974  \textbackslash{}
+        count  3.900000e+01  4.000000e+01  4.200000e+01  4.200000e+01  4.200000e+01   
+        mean   5.049943e+07  5.210008e+07  5.250194e+07  5.731077e+07  5.679905e+07   
+        std    9.857191e+07  9.959081e+07  1.018014e+08  1.079713e+08  1.084993e+08   
+        min    0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00   
+        25\%    4.007561e+06  3.303202e+06  3.597939e+06  3.801054e+06  3.924501e+06   
+        50\%    1.175993e+07  1.288440e+07  9.819683e+06  1.057493e+07  9.630694e+06   
+        75\%    4.566071e+07  4.716413e+07  5.356662e+07  6.406329e+07  6.827422e+07   
+        max    5.334974e+08  5.258989e+08  5.278931e+08  5.146546e+08  4.913961e+08   
+        
+                   {\ldots}               2002          2003          2004          2005  \textbackslash{}
+        count      {\ldots}       4.700000e+01  4.800000e+01  4.800000e+01  4.800000e+01   
+        mean       {\ldots}       7.528571e+07  7.614095e+07  7.974359e+07  8.053478e+07   
+        std        {\ldots}       9.652898e+07  1.040518e+08  1.084341e+08  1.102814e+08   
+        min        {\ldots}       3.518000e+06  1.237410e+06  3.376000e+06  3.439000e+06   
+        25\%        {\ldots}       1.350870e+07  1.278998e+07  1.408790e+07  1.442622e+07   
+        50\%        {\ldots}       3.524200e+07  3.607350e+07  3.592160e+07  3.425400e+07   
+        75\%        {\ldots}       1.031290e+08  1.071330e+08  1.052034e+08  9.858091e+07   
+        max        {\ldots}       4.241200e+08  4.838018e+08  5.043054e+08  5.248709e+08   
+        
+                       2006          2007          2008          2009          2010  \textbackslash{}
+        count  4.800000e+01  4.800000e+01  4.800000e+01  4.800000e+01  4.800000e+01   
+        mean   8.080068e+07  8.075730e+07  8.152256e+07  7.956299e+07  8.118988e+07   
+        std    1.100228e+08  1.089150e+08  1.102022e+08  1.069100e+08  1.091443e+08   
+        min    3.306000e+06  4.608000e+06  4.209776e+06  3.950356e+06  3.649308e+06   
+        25\%    1.581097e+07  1.450851e+07  1.383972e+07  1.409762e+07  1.375662e+07   
+        50\%    3.469700e+07  3.472435e+07  3.529371e+07  3.563111e+07  3.992964e+07   
+        75\%    1.035435e+08  1.074447e+08  1.075253e+08  1.067294e+08  1.130897e+08   
+        max    5.124392e+08  4.923720e+08  5.134809e+08  4.942470e+08  5.051300e+08   
+        
+                       2011  
+        count  4.800000e+01  
+        mean   8.215746e+07  
+        std    1.160546e+08  
+        min    3.585000e+06  
+        25\%    1.241370e+07  
+        50\%    3.778876e+07  
+        75\%    1.152757e+08  
+        max    5.258003e+08  
+        
+        [8 rows x 47 columns]
+\end{Verbatim}
+            
+    \subparagraph{Moving to 2nd Excel file}\label{moving-to-2nd-excel-file}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Dashed out null values instead of NAN, need to clean this up.}
+        \PY{c+c1}{\PYZsh{} These are proven resources, contrary to production values resources might}
+        \PY{c+c1}{\PYZsh{} be available, but not viable to produce.}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}       Country        1980        1981        1982        1983        1984  \textbackslash{}
+        0     Algeria  1118480000  1102112000  1287616000  1257608000  1227600000   
+        1      Angola   187550000   151131200   198734800   233926000   292850800   
+        2   Argentina   335134800   296213333   265925440   334148492   320403600   
+        3   Australia   289551438   357156336   330131535   338281872   393275197   
+        4  Azerbaijan           -           -           -           -           -   
+        
+                 1985        1986        1987        1988     {\ldots}            1999  \textbackslash{}
+        0  1203048000  1200320000  1168129600  1254880000     {\ldots}      1543229600   
+        1   275255200   190960000   272800000   272800000     {\ldots}       688820000   
+        2   305536000   304581200   306354400   310978360     {\ldots}       418910151   
+        3   396192160   430337781   432654193   466542435     {\ldots}       647050946   
+        4           -           -           -           -     {\ldots}       160679200   
+        
+                 2000        2001        2002        2003        2004        2005  \textbackslash{}
+        0  1543229600  1543229600  1543229600  1609520000  1609520000  1673628000   
+        1   814580800   886600000  1213960000  1200456400  1232374000  1232374000   
+        2   405613091   392652340   384717343   364803068   338000471   297387858   
+        3   674504712   675620021   623457866   605698711   553364970   567091853   
+        4   160679200   160679200   954800000   954800000   954800000   954800000   
+        
+                 2006        2007        2008  
+        0  1673628000  1664080000  1664080000  
+        1  1232374000  1841400000  1841400000  
+        2   352834084   356825175   356825175  
+        3   567091853   567091853   567151200  
+        4   954800000   954800000   954800000  
+        
+        [5 rows x 30 columns]
+\end{Verbatim}
+            
+    Checking the data types and empty cells for each column
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 48 entries, 0 to 47
+Data columns (total 30 columns):
+Country    48 non-null object
+1980       48 non-null object
+1981       48 non-null object
+1982       48 non-null object
+1983       48 non-null object
+1984       48 non-null object
+1985       48 non-null object
+1986       48 non-null object
+1987       48 non-null object
+1988       48 non-null object
+1989       48 non-null object
+1990       48 non-null object
+1991       48 non-null object
+1992       48 non-null object
+1993       48 non-null object
+1994       48 non-null object
+1995       48 non-null object
+1996       48 non-null object
+1997       48 non-null object
+1998       48 non-null object
+1999       48 non-null object
+2000       48 non-null int64
+2001       48 non-null int64
+2002       48 non-null int64
+2003       48 non-null int64
+2004       48 non-null int64
+2005       48 non-null int64
+2006       48 non-null int64
+2007       48 non-null int64
+2008       48 non-null int64
+dtypes: int64(9), object(21)
+memory usage: 11.3+ KB
+
+    \end{Verbatim}
+
+    Quick view histogram analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}Exploring data with histogram.}
+         \PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{figsize}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{c+c1}{\PYZsh{}right skewed data}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{Moving to 3rd Excel file}\label{moving-to-3rd-excel-file}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}Need to clean up dashed out values}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}       Country      1965      1966      1967      1968      1969      1970  \textbackslash{}
+         0     Algeria   1289000   1693000   1578000   1682000   1775000   2032000   
+         1   Argentina  21952000  22678000  23224000  23733000  24671000  21942000   
+         2   Australia  16902000  18120000  19812000  21892000  23425000  24451000   
+         3     Austria   5534000   6068000   6491000   7513000   8253000   9071000   
+         4  Azerbaijan         -         -         -         -         -         -   
+         
+                1971      1972      1973 {\ldots}       2002      2003      2004      2005  \textbackslash{}
+         0   2288000   2514000   2739000 {\ldots}    9744000  10134000  10598000  11039396   
+         1  23491000  23162000  23189000 {\ldots}   17107000  17558000  18401000  19676875   
+         2  25803000  25784000  28206000 {\ldots}   37970000  38275000  38791278  39838432   
+         3  10127000  10923000  11831000 {\ldots}   13040000  14136000  13755000  14170000   
+         4         -         -         - {\ldots}    3665000   4272000   4579000   5347000   
+         
+                2006      2007      2008        2009        2010 2011  
+         0  11519500  12904556  14012890  14900000.0  14900000.0  NaN  
+         1  20555955  23192795  24219411  23700000.0  25700000.0  NaN  
+         2  41414188  41732248  42461108  42200000.0  42600000.0  NaN  
+         3  14195000  13394000  13421000  13000000.0  13000000.0  NaN  
+         4   4868500   4496000   3340300   3200000.0   3300000.0  NaN  
+         
+         [5 rows x 48 columns]
+\end{Verbatim}
+            
+    Checking the data types and empty cells for each column
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Checking data info}
+         \PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Mixed data type and 2011 column doesn\PYZsq{}t have any data so cannot use that }
+         \PY{c+c1}{\PYZsh{} year for analysis.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 64 entries, 0 to 63
+Data columns (total 48 columns):
+Country    64 non-null object
+1965       64 non-null object
+1966       64 non-null object
+1967       64 non-null object
+1968       64 non-null object
+1969       64 non-null object
+1970       64 non-null object
+1971       64 non-null object
+1972       64 non-null object
+1973       64 non-null object
+1974       64 non-null object
+1975       64 non-null object
+1976       64 non-null object
+1977       64 non-null object
+1978       64 non-null object
+1979       64 non-null object
+1980       64 non-null object
+1981       64 non-null object
+1982       64 non-null object
+1983       64 non-null object
+1984       64 non-null object
+1985       64 non-null int64
+1986       64 non-null int64
+1987       64 non-null int64
+1988       64 non-null int64
+1989       64 non-null int64
+1990       64 non-null int64
+1991       64 non-null int64
+1992       64 non-null int64
+1993       64 non-null int64
+1994       64 non-null int64
+1995       64 non-null int64
+1996       64 non-null int64
+1997       64 non-null int64
+1998       64 non-null int64
+1999       64 non-null int64
+2000       64 non-null int64
+2001       64 non-null int64
+2002       64 non-null int64
+2003       64 non-null int64
+2004       64 non-null int64
+2005       64 non-null int64
+2006       64 non-null int64
+2007       64 non-null int64
+2008       64 non-null int64
+2009       63 non-null float64
+2010       63 non-null float64
+2011       0 non-null float64
+dtypes: float64(3), int64(24), object(21)
+memory usage: 24.1+ KB
+
+    \end{Verbatim}
+
+    Quick view histogram analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}Exploring data with histogram.}
+         \PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{figsize}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{c+c1}{\PYZsh{}right skewed data}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subparagraph{Moving to 4th Excel file}\label{moving-to-4th-excel-file}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{gni}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}large numeric values, will need to convert it into higher denomination}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}14}]:}                  Country  1961  1962  1963  1964  1965  1966  1967  1968  \textbackslash{}
+         0               Abkhazia   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   
+         1            Afghanistan   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   
+         2  Akrotiri and Dhekelia   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   
+         3                Albania   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   
+         4                Algeria   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   
+         
+            1969      {\ldots}               2002          2003          2004          2005  \textbackslash{}
+         0   NaN      {\ldots}                NaN           NaN           NaN           NaN   
+         1   NaN      {\ldots}       1.336378e+10  1.678050e+10  1.893645e+10  2.240887e+10   
+         2   NaN      {\ldots}                NaN           NaN           NaN           NaN   
+         3   NaN      {\ldots}       1.539573e+10  1.663143e+10  1.801537e+10  1.954609e+10   
+         4   NaN      {\ldots}       1.767201e+11  1.927724e+11  2.079228e+11  2.240600e+11   
+         
+                    2006          2007          2008          2009          2010  \textbackslash{}
+         0           NaN           NaN           NaN           NaN           NaN   
+         1  2.729843e+10  3.070364e+10  2.809452e+10  3.341694e+10  3.634080e+10   
+         2           NaN           NaN           NaN           NaN           NaN   
+         3  2.208245e+10  2.343622e+10  2.635538e+10  2.732051e+10  2.747576e+10   
+         4  2.387023e+11  2.596084e+11  2.732739e+11  2.879803e+11  2.859299e+11   
+         
+                    2011  
+         0           NaN  
+         1           NaN  
+         2           NaN  
+         3  2.863173e+10  
+         4  3.010651e+11  
+         
+         [5 rows x 52 columns]
+\end{Verbatim}
+            
+    Checking the data types and empty cells for each column
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Checking data info}
+         \PY{n}{gni}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}1961\PYZhy{}1979 data is empty}
+         \PY{c+c1}{\PYZsh{}2004 to 2009 has good data density, to be considered while selecting time range.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 272 entries, 0 to 271
+Data columns (total 52 columns):
+Country    272 non-null object
+1961       0 non-null float64
+1962       0 non-null float64
+1963       0 non-null float64
+1964       0 non-null float64
+1965       0 non-null float64
+1966       0 non-null float64
+1967       0 non-null float64
+1968       0 non-null float64
+1969       0 non-null float64
+1970       0 non-null float64
+1971       0 non-null float64
+1972       0 non-null float64
+1973       0 non-null float64
+1974       0 non-null float64
+1975       0 non-null float64
+1976       0 non-null float64
+1977       0 non-null float64
+1978       0 non-null float64
+1979       0 non-null float64
+1980       122 non-null float64
+1981       126 non-null float64
+1982       130 non-null float64
+1983       130 non-null float64
+1984       133 non-null float64
+1985       137 non-null float64
+1986       139 non-null float64
+1987       141 non-null float64
+1988       142 non-null float64
+1989       147 non-null float64
+1990       154 non-null float64
+1991       157 non-null float64
+1992       162 non-null float64
+1993       165 non-null float64
+1994       168 non-null float64
+1995       171 non-null float64
+1996       171 non-null float64
+1997       173 non-null float64
+1998       173 non-null float64
+1999       175 non-null float64
+2000       176 non-null float64
+2001       177 non-null float64
+2002       179 non-null float64
+2003       179 non-null float64
+2004       181 non-null float64
+2005       182 non-null float64
+2006       181 non-null float64
+2007       182 non-null float64
+2008       182 non-null float64
+2009       182 non-null float64
+2010       177 non-null float64
+2011       162 non-null float64
+dtypes: float64(51), object(1)
+memory usage: 110.6+ KB
+
+    \end{Verbatim}
+
+    Quick view histogram analysis
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Exploring data with histogram.}
+         \PY{n}{gni}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{bins}\PY{o}{=} \PY{l+m+mi}{20}\PY{p}{,} \PY{n}{figsize}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+         \PY{c+c1}{\PYZsh{}right skewed data, nothing a}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Case- 2: Smoking trends among Men and Women, and how it
+relates to life
+expectancy.}\label{case--2-smoking-trends-among-men-and-women-and-how-it-relates-to-life-expectancy.}
+
+    \paragraph{Utilizing the head, info, dtypes and histograms to get a good
+idea of dataset and plan accordingly for cleaning the
+data.}\label{utilizing-the-head-info-dtypes-and-histograms-to-get-a-good-idea-of-dataset-and-plan-accordingly-for-cleaning-the-data.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{life\PYZus{}exp}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}          Life expectancy   1800   1801   1802   1803   1804   1805   1806  \textbackslash{}
+         0               Abkhazia    NaN    NaN    NaN    NaN    NaN    NaN    NaN   
+         1            Afghanistan  28.21  28.20  28.19  28.18  28.17  28.16  28.15   
+         2  Akrotiri and Dhekelia    NaN    NaN    NaN    NaN    NaN    NaN    NaN   
+         3                Albania  35.40  35.40  35.40  35.40  35.40  35.40  35.40   
+         4                Algeria  28.82  28.82  28.82  28.82  28.82  28.82  28.82   
+         
+             1807   1808  {\ldots}    2007  2008  2009  2010  2011  2012  2013  2014  2015  \textbackslash{}
+         0    NaN    NaN  {\ldots}     NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   
+         1  28.14  28.13  {\ldots}    52.4  52.8  53.3  53.6  54.0  54.4  54.8  54.9  53.8   
+         2    NaN    NaN  {\ldots}     NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   NaN   
+         3  35.40  35.40  {\ldots}    76.6  76.8  77.0  77.2  77.4  77.5  77.7  77.9  78.0   
+         4  28.82  28.82  {\ldots}    75.3  75.5  75.7  76.0  76.1  76.2  76.3  76.3  76.4   
+         
+             2016  
+         0    NaN  
+         1  52.72  
+         2    NaN  
+         3  78.10  
+         4  76.50  
+         
+         [5 rows x 218 columns]
+\end{Verbatim}
+            
+    Checking the 2005 histogram for distrubution as this year will be used
+later for analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{life\PYZus{}exp}\PY{p}{[}\PY{l+m+mi}{2005}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{life\PYZus{}exp}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 260 entries, 0 to 259
+Columns: 218 entries, Life expectancy to 2016
+dtypes: float64(217), object(1)
+memory usage: 442.9+ KB
+
+    \end{Verbatim}
+
+    \subparagraph{Moving to 2nd Excel file}\label{moving-to-2nd-excel-file}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{n}{smk\PYZus{}female}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}20}]:}   Prevalence of current tobacco use among adults (>=15 years) (\%) female  \textbackslash{}
+         0                                            Algeria                       
+         1                                             Angola                       
+         2                                              Benin                       
+         3                                           Botswana                       
+         4                                       Burkina Faso                       
+         
+            2000  2002  2005  
+         0   0.3   0.3   0.3  
+         1   NaN   NaN   NaN  
+         2   NaN   NaN   NaN  
+         3   NaN   NaN   NaN  
+         4  11.2  11.2  11.2  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n}{smk\PYZus{}female}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 192 entries, 0 to 191
+Data columns (total 4 columns):
+Prevalence of current tobacco use among adults (>=15 years) (\%) female    192 non-null object
+2000                                                                      131 non-null float64
+2002                                                                      131 non-null float64
+2005                                                                      131 non-null float64
+dtypes: float64(3), object(1)
+memory usage: 6.1+ KB
+
+    \end{Verbatim}
+
+    Since the data is available for 3 years only, latest (2005) to be used
+for this analysis.
+
+    \subparagraph{Moving to 3rd Excel file}\label{moving-to-3rd-excel-file}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{smk\PYZus{}male}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}   Prevalence of current tobacco use among adults (>=15 years) (\%) male  2002  \textbackslash{}
+         0                                            Algeria                    29.9   
+         1                                             Angola                     NaN   
+         2                                              Benin                     NaN   
+         3                                           Botswana                     NaN   
+         4                                       Burkina Faso                    22.0   
+         
+            2005  
+         0  29.9  
+         1   NaN  
+         2   NaN  
+         3   NaN  
+         4  22.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{n}{smk\PYZus{}male}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 192 entries, 0 to 191
+Data columns (total 3 columns):
+Prevalence of current tobacco use among adults (>=15 years) (\%) male    192 non-null object
+2002                                                                    131 non-null float64
+2005                                                                    131 non-null float64
+dtypes: float64(2), object(1)
+memory usage: 4.6+ KB
+
+    \end{Verbatim}
+
+    \subparagraph{Moving to 4th Excel file}\label{moving-to-4th-excel-file}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{gnipc}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:}   GNI per capita, Atlas method (current US\$)  1962  1963  1964  1965  1966  \textbackslash{}
+         0                                      Aruba   NaN   NaN   NaN   NaN   NaN   
+         1                                    Andorra   NaN   NaN   NaN   NaN   NaN   
+         2                                Afghanistan   NaN   NaN   NaN   NaN   NaN   
+         3                                     Angola   NaN   NaN   NaN   NaN   NaN   
+         4                                    Albania   NaN   NaN   NaN   NaN   NaN   
+         
+            1967  1968  1969  1970   {\ldots}        2006     2007     2008     2009  \textbackslash{}
+         0   NaN   NaN   NaN   NaN   {\ldots}         NaN      NaN      NaN      NaN   
+         1   NaN   NaN   NaN   NaN   {\ldots}     42740.0  44250.0  43760.0  44180.0   
+         2   NaN   NaN   NaN   NaN   {\ldots}       280.0    340.0    370.0    470.0   
+         3   NaN   NaN   NaN   NaN   {\ldots}      1620.0   2350.0   3010.0   3490.0   
+         4   NaN   NaN   NaN   NaN   {\ldots}      3120.0   3530.0   4080.0   4280.0   
+         
+               2010     2011     2012     2013     2014     2015  
+         0      NaN      NaN      NaN      NaN      NaN      NaN  
+         1  41670.0  40580.0  41010.0  43270.0  45655.0  48170.0  
+         2    520.0    570.0    690.0    690.0    670.0    651.0  
+         3   3550.0   3690.0   4150.0   4730.0   4850.0   4973.0  
+         4   4360.0   4390.0   4370.0   4510.0   4460.0   4411.0  
+         
+         [5 rows x 55 columns]
+\end{Verbatim}
+            
+    Checking for number of null values
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{gnipc}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2005}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} 24
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{gnipc}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} (249, 55)
+\end{Verbatim}
+            
+    \paragraph{Since all the files have 1st column named with file
+description, replacing the column 1 name with country
+name}\label{since-all-the-files-have-1st-column-named-with-file-description-replacing-the-column-1-name-with-country-name}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}Replacing the column 1 name with country name}
+         \PY{n}{life\PYZus{}exp} \PY{o}{=} \PY{n}{life\PYZus{}exp}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{life\PYZus{}exp}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+         \PY{n}{smk\PYZus{}male} \PY{o}{=} \PY{n}{smk\PYZus{}male}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{smk\PYZus{}male}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+         \PY{n}{smk\PYZus{}female} \PY{o}{=} \PY{n}{smk\PYZus{}female}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{smk\PYZus{}female}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+         \PY{n}{gnipc} \PY{o}{=} \PY{n}{gnipc}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{n}{gnipc}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \section{Data Cleaning (Selecting Year and removing the null
+values)}\label{data-cleaning-selecting-year-and-removing-the-null-values}
+
+    Based on initial analysis of data type and null values in data, in this
+section we will proceed with further cleaning the data. For each of the
+sub data set, null values will be removed and time range of analysis
+will be set (depending on data available).
+
+    \subsection{Case-1: Oil Reservoir,Production \& Consumption trends. Also
+how GNI of oil producing nations
+appears.}\label{case-1-oil-reservoirproduction-consumption-trends.-also-how-gni-of-oil-producing-nations-appears.}
+
+Since the latest available data for oil\_proven (proven oil resources)
+is for 2008, let's focus on 2008 data. Data below from 4 df's:
+\textgreater{}i) oil\_prod: Oil Produced \textgreater{}ii) oil\_proven:
+Proven oil resources \textgreater{}iii)oil\_consume: Oil consumed
+\textgreater{}iv) gni: total gross net income converted to international
+dollars using PPP rates 
+
+    \subsubsection{oil\_prod : Oil Produced in
+TOE}\label{oil_prod-oil-produced-in-toe}
+
+    Columns (Country and 2008(year)) are selected for analysis, null values
+dropped and renamed the column to prepare the data for merge later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} Selecting columns}
+         \PY{n}{oil\PYZus{}prod} \PY{o}{=} \PY{n}{oil\PYZus{}prod}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2008}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Dropping null values}
+         
+         \PY{n}{oil\PYZus{}prod} \PY{o}{=} \PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Renaming column}
+         
+         \PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{rename} \PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{2008}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{oil\PYZus{}prod}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:}        Country  oil\_production
+         4      Algeria    8.562018e+07
+         7       Angola    9.347852e+07
+         10   Argentina    3.412383e+07
+         13   Australia    2.435672e+07
+         15  Azerbaijan    4.474850e+07
+\end{Verbatim}
+            
+    As the value of oil produced is in toe, for better visualization
+converting from toe (tonne of equivalent) to mtoe(million tonne of
+equivalent)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{} Unit coversion}
+         \PY{n}{oil\PYZus{}prod}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{=} \PY{n}{oil\PYZus{}prod}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{.}\PY{l+m+mi}{0000001}
+\end{Verbatim}
+
+
+    \subsubsection{oil\_proven : Proven oil resources in
+TOE}\label{oil_proven-proven-oil-resources-in-toe}
+
+    Columns (Country and 2008(year)) are selected for analysis, null values
+dropped and renamed the column to prepare the data for merge later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{} Selecting the country and specifying year}
+         \PY{n}{oil\PYZus{}proven} \PY{o}{=} \PY{n}{oil\PYZus{}proven}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2008}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Dropping null values}
+         
+         \PY{n}{oil\PYZus{}proven} \PY{o}{=} \PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}renaming to prepare the data for merge later}
+         
+         \PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{rename} \PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{2008}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}proven}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}30}]:}       Country  oil\_proven
+         0     Algeria  1664080000
+         1      Angola  1841400000
+         2   Argentina   356825175
+         3   Australia   567151200
+         4  Azerbaijan   954800000
+\end{Verbatim}
+            
+    As the value of oil reservoir is in toe, for better visualization
+converting from toe (tonne of equivalent) to mtoe(million tonne of
+equivalent)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{} Unit conversion}
+         \PY{n}{oil\PYZus{}proven}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}proven}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{oil\PYZus{}proven}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}proven}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{.}\PY{l+m+mi}{0000001}
+\end{Verbatim}
+
+
+    \subsubsection{oil\_consume : Oil Consumed in
+TOE}\label{oil_consume-oil-consumed-in-toe}
+
+    Columns (Country and 2008(year)) are selected for analysis, null values
+dropped and renamed the column to prepare the data for merge later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{} Selecting the country and specifying year}
+         \PY{n}{oil\PYZus{}consume} \PY{o}{=} \PY{n}{oil\PYZus{}consume}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2008}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Dropping null values}
+         
+         \PY{n}{oil\PYZus{}consume} \PY{o}{=} \PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}renaming to prepare the data for merge later}
+         
+         \PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{rename} \PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{2008}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}consume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}32}]:}       Country  oil\_consume
+         0     Algeria     14012890
+         1   Argentina     24219411
+         2   Australia     42461108
+         3     Austria     13421000
+         4  Azerbaijan      3340300
+\end{Verbatim}
+            
+    As the value of oil consumption is in toe, for better visualization
+converting from toe (tonne of equivalent) to mtoe(million tonne of
+equivalent)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{} Unit conversion}
+         \PY{n}{oil\PYZus{}consume}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}consume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{oil\PYZus{}consume}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}consume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{.}\PY{l+m+mi}{0000001}
+\end{Verbatim}
+
+
+    \subsubsection{gni\_oil : total gross net income (\$) converted to
+international dollars using PPP
+rates}\label{gni_oil-total-gross-net-income-converted-to-international-dollars-using-ppp-rates}
+
+    Columns (Country and 2008(year)) are selected for analysis, null values
+dropped and renamed the column to prepare the data for merge later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{} Selecting the country and specifying year}
+         \PY{n}{gni\PYZus{}oil} \PY{o}{=} \PY{n}{gni}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{48}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} Dropping null values}
+         
+         \PY{n}{gni\PYZus{}oil} \PY{o}{=} \PY{n}{gni\PYZus{}oil}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}renaming to prepare the data for merge later}
+         
+         \PY{n}{gni\PYZus{}oil}\PY{o}{.}\PY{n}{rename} \PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2008}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gni\PYZus{}oil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{gni\PYZus{}oil}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:}                Country       gni\_oil
+         1          Afghanistan  2.809452e+10
+         3              Albania  2.635538e+10
+         4              Algeria  2.732739e+11
+         7               Angola  8.468289e+10
+         9  Antigua and Barbuda  1.677932e+09
+\end{Verbatim}
+            
+    As the value of gni is in (\$) for better visualization converting from
+(\$) to million (m\$)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{c+c1}{\PYZsh{} Unit conversion}
+         \PY{n}{gni\PYZus{}oil}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gni\PYZus{}oil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{gni\PYZus{}oil}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gni\PYZus{}oil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{.}\PY{l+m+mi}{0000001}
+\end{Verbatim}
+
+
+    \subsubsection{Merging the data for
+charts}\label{merging-the-data-for-charts}
+
+    Cleaned up data is now merged using inner method. Also a consumption
+ratio is calculated, which will be used in next section for EDA. Merged
+data will be stored under oil\_trend\_gni.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{oil\PYZus{}pro\PYZus{}merge} \PY{o}{=} \PY{n}{oil\PYZus{}proven}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{oil\PYZus{}prod}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{oil\PYZus{}trend} \PY{o}{=} \PY{n}{oil\PYZus{}consume}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{oil\PYZus{}pro\PYZus{}merge}\PY{p}{,}\PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{oil\PYZus{}trend\PYZus{}gni} \PY{o}{=} \PY{n}{oil\PYZus{}trend}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{gni\PYZus{}oil}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{oil\PYZus{}trend\PYZus{}gni} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{consumption\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}consume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{/}\PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{oil\PYZus{}trend\PYZus{}gni} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nation\PYZus{}category}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{where}\PY{p}{(}\PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{consumption\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exporter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{importer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}36}]:}        Country  oil\_consume   oil\_proven  oil\_production        gni\_oil  \textbackslash{}
+         0      Algeria     1.401289   166.408000        8.562018   27327.394520   
+         1    Argentina     2.421941    35.682517        3.412383   55984.440152   
+         2    Australia     4.246111    56.715120        2.435672   77227.646570   
+         3   Azerbaijan     0.334030    95.480000        4.474850    6810.902768   
+         4       Brazil    10.534621   172.389413        9.924282  194582.398063   
+         5       Canada    10.202961   390.262704       15.590015  128254.438036   
+         6        China    37.570980   210.900316       19.043960  824719.141949   
+         7     Colombia     1.072379    18.577680        3.199686   38625.815760   
+         8      Denmark     0.892800    11.067299        1.403500   22227.020682   
+         9      Ecuador     0.928015    52.071614        2.741486   10584.750702   
+         10       Egypt     3.261800    59.197600        3.464000   44724.729897   
+         11       India    13.501100    79.086084        3.613500  338727.812490   
+         12   Indonesia     5.735734    51.115900        4.897721   87822.858243   
+         13        Iran     8.326746  1877.136800       21.297562   80993.476005   
+         14       Italy     8.090400    11.440039        0.523590  197494.103818   
+         15  Kazakhstan     1.089290   543.253920        7.204990   15234.565267   
+         16      Kuwait     1.527401  1384.460000       13.581319   14827.410949   
+         17    Malaysia     2.180083    74.474400        3.205164   37443.140067   
+         18      Mexico     9.002922   161.906800       15.764929  160622.828860   
+         19      Norway     0.975270   102.318726       11.419211   29114.239035   
+         
+             consumption\_ratio nation\_category  
+         0            0.163663        exporter  
+         1            0.709751        exporter  
+         2            1.743301        importer  
+         3            0.074646        exporter  
+         4            1.061500        importer  
+         5            0.654455        exporter  
+         6            1.972855        importer  
+         7            0.335151        exporter  
+         8            0.636124        exporter  
+         9            0.338508        exporter  
+         10           0.941628        exporter  
+         11           3.736294        importer  
+         12           1.171103        importer  
+         13           0.390972        exporter  
+         14          15.451785        importer  
+         15           0.151185        exporter  
+         16           0.112463        exporter  
+         17           0.680178        exporter  
+         18           0.571073        exporter  
+         19           0.085406        exporter  
+\end{Verbatim}
+            
+    \subsection{Case- 2: Smoking trends among Men and Women, and how it
+relates to life
+expectancy.}\label{case--2-smoking-trends-among-men-and-women-and-how-it-relates-to-life-expectancy.}
+
+    Create the bins and label the data into world bank classes based on GNI
+per capita. Cleaning up GNI per capita data and renaming the column.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{} Bin and cut into classes}
+         \PY{n}{gnipc\PYZus{}df} \PY{o}{=} \PY{n}{gnipc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2005}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]} 
+         \PY{n}{gnipc\PYZus{}df} \PY{o}{=} \PY{n}{gnipc\PYZus{}df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)} 
+         \PY{n}{bin\PYZus{}edges} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1005}\PY{p}{,} \PY{l+m+mi}{3955}\PY{p}{,} \PY{l+m+mi}{12235}\PY{p}{,} \PY{l+m+mi}{50000}\PY{p}{]}
+         \PY{n}{bin\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower\PYZus{}middle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{upper\PYZus{}middle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{higher}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{gnipc\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{wb\PYZus{}class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{gnipc\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2005}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{bin\PYZus{}edges}\PY{p}{,} \PY{n}{labels}\PY{o}{=}\PY{n}{bin\PYZus{}names}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{c+c1}{\PYZsh{} Renaming the year column to income\PYZus{}pc for later analysis}
+         \PY{n}{gnipc\PYZus{}df}\PY{o}{.}\PY{n}{rename} \PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2005}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{income\PYZus{}pc}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    Cleaning up Female smokers data and renaming the column for merging
+later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{c+c1}{\PYZsh{} selecting year 2005}
+         \PY{n}{smk\PYZus{}female\PYZus{}df} \PY{o}{=} \PY{n}{smk\PYZus{}female}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2005}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}dropping null values}
+         \PY{n}{smk\PYZus{}female\PYZus{}df} \PY{o}{=} \PY{n}{smk\PYZus{}female\PYZus{}df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}renaming for later analysis}
+         \PY{n}{smk\PYZus{}female\PYZus{}df}\PY{o}{.}\PY{n}{rename} \PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{2005}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{female\PYZus{}smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    Cleaning up Male smokers data and renaming the column for merging later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{c+c1}{\PYZsh{} selecting year 2005}
+         \PY{n}{smk\PYZus{}male\PYZus{}df} \PY{o}{=} \PY{n}{smk\PYZus{}male}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2005}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}dropping null values}
+         \PY{n}{smk\PYZus{}male\PYZus{}df} \PY{o}{=} \PY{n}{smk\PYZus{}male\PYZus{}df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}renaming for later analysis}
+         \PY{n}{smk\PYZus{}male\PYZus{}df}\PY{o}{.}\PY{n}{rename} \PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{2005}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{male\PYZus{}smoker}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    Cleaning up Life expectancy data and renaming the column for merging
+later.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} selecting year 2005}
+         \PY{n}{life\PYZus{}exp\PYZus{}df} \PY{o}{=} \PY{n}{life\PYZus{}exp}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+m+mi}{2005}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}dropping null values}
+         \PY{n}{life\PYZus{}exp\PYZus{}df} \PY{o}{=} \PY{n}{life\PYZus{}exp\PYZus{}df}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}renaming for later analysis}
+         \PY{n}{life\PYZus{}exp\PYZus{}df}\PY{o}{.}\PY{n}{rename} \PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{2005}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{life\PYZus{}expectancy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Merging the data for
+charts}\label{merging-the-data-for-charts}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{smk\PYZus{}cmb} \PY{o}{=} \PY{n}{smk\PYZus{}female\PYZus{}df}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{smk\PYZus{}male\PYZus{}df}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{life\PYZus{}trend} \PY{o}{=} \PY{n}{life\PYZus{}exp\PYZus{}df}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{smk\PYZus{}cmb}\PY{p}{,} \PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{life\PYZus{}trend\PYZus{}gni} \PY{o}{=} \PY{n}{gnipc\PYZus{}df}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{life\PYZus{}trend}\PY{p}{,}\PY{n}{how} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{left\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{right\PYZus{}on} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:}                 Country  income\_pc      wb\_class  life\_expectancy  \textbackslash{}
+         0               Andorra    40040.0        higher             84.3   
+         1               Albania     2690.0  lower\_middle             76.2   
+         2  United Arab Emirates    38390.0        higher             75.2   
+         3             Argentina     4990.0  upper\_middle             75.3   
+         4               Armenia     1520.0  lower\_middle             71.8   
+         
+            female\_smoker  male\_smoker  
+         0           29.2         36.5  
+         1            4.0         40.5  
+         2            2.6         26.1  
+         3           25.4         34.6  
+         4            3.7         55.1  
+\end{Verbatim}
+            
+    \subsubsection{Creating masks for filtering data based on class (low and
+higher)}\label{creating-masks-for-filtering-data-based-on-class-low-and-higher}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} Creating mask (low)}
+         \PY{n}{low}\PY{o}{=} \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{wb\PYZus{}class} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lower}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{c+c1}{\PYZsh{} Creating mask (higher)}
+         \PY{n}{higher} \PY{o}{=} \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{wb\PYZus{}class} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{higher}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+
+
+    Checking mean of life expectancy difference between lower class and
+higher class.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} Calculating mean using mask}
+         \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{life\PYZus{}expectancy}\PY{p}{[}\PY{n}{low}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} 59.4
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{c+c1}{\PYZsh{} Calculating mean using mask}
+         \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{life\PYZus{}expectancy}\PY{p}{[}\PY{n}{higher}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}47}]:} 79.3037037037037
+\end{Verbatim}
+            
+     \# Exploratory Data Analysis
+
+\subsubsection{Research Question 1: Which Countries are highest
+producer, consumer and owner (proven reservoir) of oil and how these
+characteristic reflect on the Gross Net Income
+(gni)?}\label{research-question-1-which-countries-are-highest-producer-consumer-and-owner-proven-reservoir-of-oil-and-how-these-characteristic-reflect-on-the-gross-net-income-gni}
+
+    \paragraph{Let's begin with how raw merged data looks in terms of oil
+consumption}\label{lets-begin-with-how-raw-merged-data-looks-in-terms-of-oil-consumption}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Country}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}consume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{oil\PYZus{}trend\PYZus{}gni} \PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_103_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    As it's clear that there are many small contributor's. In order to reach
+conclusions on defined problem statement,I will focus on Top 15 for each
+category.
+
+    \paragraph{Top 15 oil consumer countries (oil\_top\_consumer)selected
+using .nlargest
+function}\label{top-15-oil-consumer-countries-oil_top_consumerselected-using-.nlargest-function}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{c+c1}{\PYZsh{} Sorting and limiting to top 15}
+         \PY{n}{oil\PYZus{}top\PYZus{}consumer} \PY{o}{=} \PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}consume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}consume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} Plot the values on bar chart}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Country}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}consume}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{oil\PYZus{}top\PYZus{}consumer} \PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Consumption of Oil in MTOE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Countries}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top 15 Oil Consumer countries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{;}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{rc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{(}\PY{l+m+mf}{11.7}\PY{p}{,}\PY{l+m+mf}{8.27}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_107_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Above chart clearly shows us that \textbf{US, China, India, Russia \&
+Brazil} are \textbf{top most oil consumers} globally for year 2008. ***
+
+    \subsubsection{Top 15 oil producer countries
+(oil\_top\_producer)selected using .nlargest
+function}\label{top-15-oil-producer-countries-oil_top_producerselected-using-.nlargest-function}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{c+c1}{\PYZsh{} Sorting and limiting to top 15}
+         \PY{n}{oil\PYZus{}top\PYZus{}producer} \PY{o}{=} \PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{c+c1}{\PYZsh{} Plot the values on bar chart}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Country}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{oil\PYZus{}top\PYZus{}producer}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Production of Oil in MTOE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Countries}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top 15 Oil Producer countries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{;}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{rc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{(}\PY{l+m+mf}{11.7}\PY{p}{,}\PY{l+m+mf}{8.27}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_111_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Contrary to previous chart, Top producers are not same as Top consumers.
+\textbf{Saudi Arabia, Russia, US, Iran and China} are \textbf{top most
+oil producers} globally for year 2008. ***
+
+    \subsubsection{Top 15 Proven oil reservoir countries
+(oil\_top\_proven)selected using .nlargest
+function}\label{top-15-proven-oil-reservoir-countries-oil_top_provenselected-using-.nlargest-function}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}53}]:} \PY{c+c1}{\PYZsh{} Sorting and limiting to top 15}
+         \PY{n}{oil\PYZus{}top\PYZus{}proven} \PY{o}{=} \PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}proven}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{nlargest}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}proven}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} Plot the values on bar chart}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{whitegrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Country}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}proven}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{data} \PY{o}{=} \PY{n}{oil\PYZus{}top\PYZus{}proven}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{ax}\PY{o}{.}\PY{n}{get\PYZus{}xticklabels}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{rotation}\PY{o}{=}\PY{l+m+mi}{90}\PY{p}{)}\PY{p}{;}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}ylabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proven Oil Reservoir in MTOE}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xlabel} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Countries}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Top 15 Proven Oil Reservoir countries}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{;}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{rc}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{figure.figsize}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{p}{(}\PY{l+m+mf}{11.7}\PY{p}{,}\PY{l+m+mf}{8.27}\PY{p}{)}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_115_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+This chart shows us coutries with biggest proven reservoirs, however not
+all of them are biggest producers when compared to previous chart.
+\textbf{Saudi Arabia \& Iran} are the only 2 in Top 5 that are common
+countries. Rest \textbf{Kuwait, Venenzuela and UAE} are among
+\textbf{top most proven oil reservoirs} globally for year 2008.
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \paragraph{Exploring further relationships among
+factors}\label{exploring-further-relationships-among-factors}
+
+    Quick view of chart shows that we have outliers on x-axis (with a very
+big proven reservior), and y-axis (low proven reservoir but high
+consumption).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}55}]:} \PY{c+c1}{\PYZsh{} Quick view scatter plot}
+         \PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{consumption\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{kind}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_119_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    In order to deal with this outlier, I filtered the df with multiple
+conditions. Similar result can be obtained with xlim, ylim but I want to
+use the same data in further analysis. Hence filter is created.
+
+    \paragraph{Filter created to avoid plotting
+outliers}\label{filter-created-to-avoid-plotting-outliers}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}56}]:} \PY{c+c1}{\PYZsh{}Filter applied}
+         \PY{n}{oil\PYZus{}trend\PYZus{}gni\PYZus{}filtered} \PY{o}{=} \PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{p}{[}\PY{p}{(}\PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{consumption\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{l+m+mi}{4}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{oil\PYZus{}trend\PYZus{}gni}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gni\PYZus{}oil}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{l+m+mi}{400000}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    Scatter chart after filter applied, now the spread appears to be better
+for analysis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{c+c1}{\PYZsh{} Scatter plot}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set\PYZus{}style}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{darkgrid}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{oil\PYZus{}trend\PYZus{}gni\PYZus{}filtered}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{consumption\PYZus{}ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{oil\PYZus{}production}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                     \PY{n}{kind}\PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scatter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Oil Production vs Consumption ratio}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_124_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+This is simple graphical representation of countries behavior with
+regards to Consumption ratio and production. It is clear that with
+similar oil production levels, the consumption ratio is varying across
+countries. ***
+
+    \paragraph{To analyze the behaviour of Nation's Gross Income based on
+their
+consumption.}\label{to-analyze-the-behaviour-of-nations-gross-income-based-on-their-consumption.}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}58}]:} \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot} \PY{p}{(}\PY{n}{y}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gni\PYZus{}oil}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{x} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{oil\PYZus{}consume}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{oil\PYZus{}trend\PYZus{}gni\PYZus{}filtered}\PY{p}{,}
+                     \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nation\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{col} \PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{nation\PYZus{}category}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_127_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \paragraph{From 2 charts above, below are the
+observations:}\label{from-2-charts-above-below-are-the-observations}
+
+\begin{quote}
+Number of exporters are more than importers Slope for Importers GNI is
+higher than exporters. Since the countries are importing and consuming
+heavily, indicates that the infrastructure is developed and contributing
+to higher GNI.(Limitation: Need more supporting data to demostrate the
+relationship) Majority of exporting nation has lower GNI and consumption
+concurrently, indicating they are relying on exports in other sectors
+from different countries. (Limitation: Need more supporting data to
+demostrate the relationship)
+\end{quote}
+
+    \subsubsection{Research Question 2 : Smoking trends among Men and Women,
+how it relates to life expectancy and how these parameters vary with
+different class in
+society?}\label{research-question-2-smoking-trends-among-men-and-women-how-it-relates-to-life-expectancy-and-how-these-parameters-vary-with-different-class-in-society}
+
+    \subsubsection{Firstly let's compare the smoking trend among men and
+women}\label{firstly-lets-compare-the-smoking-trend-among-men-and-women}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}59}]:} \PY{c+c1}{\PYZsh{} Plotting the data}
+         \PY{n}{ax}\PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{regplot}\PY{p}{(}\PY{n}{x}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{male\PYZus{}smoker}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female\PYZus{}smoker}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Male vs Female smokers}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{size} \PY{o}{=} \PY{l+m+mi}{12}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_131_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+Above chart indicates higher percentage of male smokers compared to the
+female smokers globally. In next few charts, more details will be
+explored. ***
+
+    Next, let's explore how the smoking patterns vary among different class
+of society
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}60}]:} \PY{c+c1}{\PYZsh{} Plot the split with class in society}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{lmplot}\PY{p}{(}\PY{n}{x}\PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{male\PYZus{}smoker}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{female\PYZus{}smoker}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{p}{,}
+                     \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wb\PYZus{}class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{col} \PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wb\PYZus{}class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{n}{col\PYZus{}wrap}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_134_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{Below are the
+observations:}\label{below-are-the-observations}
+
+\begin{quote}
+i.Female in lower class smoke less in most of the countries ii. In
+lower\_middle class distribution starts to spread out and \% of male
+smokers increase significantly iii. In upper middle women are smoking
+above average, and men are smoking slightly less than lower\_middle. iv.
+Female in higer class smoke in most of countries, men on other hand have
+sligtely less \% of smokers compared to all other classes. ***
+\end{quote}
+
+    To visualize other correlations, let's utlize pairplots
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}61}]:} \PY{c+c1}{\PYZsh{} Pair plots}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{style}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ticks}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{p}{,} \PY{n}{hue}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{wb\PYZus{}class}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_137_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{Observations from
+Pairplots:}\label{observations-from-pairplots}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  Income distribution among classes is right skewed, mostly comprising
+  of lower and lower\_middle on left end.
+\item
+  Life expectancy among lower, lower\_middle and upper\_middle doesn't
+  vary too much. iii.Lower and middle class females tend to smoke less
+  generally (cluster on left lower end), whereas female from higher
+  class and high income smoke in most of the cases. iv.Most of male
+  smokers are from lower and middle section of society 
+\item
+  Life expectency is non linear to smoking percentages (make and female)
+  ***
+\end{enumerate}
+\end{quote}
+
+    Lastly, let's explore the data for certain class utilizing the masks
+created in previous section.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}62}]:} \PY{c+c1}{\PYZsh{} Histogram using masks}
+         \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{life\PYZus{}expectancy}\PY{p}{[}\PY{n}{low}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{low}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{life\PYZus{}trend\PYZus{}gni}\PY{o}{.}\PY{n}{life\PYZus{}expectancy}\PY{p}{[}\PY{n}{higher}\PY{p}{]}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{high}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{alpha} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{,} \PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age in Years}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of Countries}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Life Expectancy (Age) Distribution between Upper Class and Lower Class}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(} \PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_140_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\paragraph{Observations from
+Histogram:}\label{observations-from-histogram}
+
+\begin{quote}
+\begin{enumerate}
+\def\labelenumi{\roman{enumi}.}
+\tightlist
+\item
+  There is a clear relation between income and life expectancy 
+\item
+  People with higher income (green) outlize the people with lowest
+  income (blue) by average 20 years (mean calculated earlier). ***
+\end{enumerate}
+\end{quote}
+
+     \#\# Conclusions
+
+Based on questions set in begining and analysis performed, below is my
+conclusion for each case.
+
+\textbf{Case-1: Oil Economics} \textgreater{} I found that the Nations
+with largest proven reservoirs are not always the one producing most.
+There could be several social/political/economical reasons for that,
+which were not covered as part of this analysis. \textgreater{}
+Similarly breaking the nations down into importer and exporter
+categories (based on consumption ratio) helps to understand the dynamics
+but need more data to establisht the facts.
+
+\textbf{Case-2: Smoking Behaviours} \textgreater{} With limited amount
+of data, I managed to explore the relationships among different sections
+of society as intended. \textgreater{} One of the area not explored was
+correlating the findings to job sectors and working population for each
+country on top of sections of society. \textgreater{} Using binning and
+cut function was instrumental in this analysis.
+
+\subsubsection{Limitations}\label{limitations}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Inconsistency in data availability, for some datasets data was
+  starting from 1965 and while others it was only limited to 3 years. 
+\item
+  During merging, had to make a choice either to have a lot of null
+  values (Right/Left/Outer Join)or just go with Inner join (which I
+  opted for) to get clean data. With this approach I had to sacrifice
+  some of countries data.
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{from} \PY{n+nn}{subprocess} \PY{k}{import} \PY{n}{call}
+        \PY{n}{call}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}m}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nbconvert}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{investigate\PYZhy{}a\PYZhy{}dataset\PYZhy{}Gapminder\PYZus{}V3.ipynb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:} 0
+\end{Verbatim}
+            
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
