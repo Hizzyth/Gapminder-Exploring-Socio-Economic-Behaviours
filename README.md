@@ -16,3 +16,8 @@ Website:Documentation from Matlabplot
 Website:Gapminder
 
 Book: Python for Data Analyst
+
+
+Main folder for running the coder: Gapminder-Exploring-Socio-Economic-Behaviours/Investigate Dataset Project/investigate-a-dataset-template.ipynb
+
+Final Notebook inside the folder: investigate-a-dataset-Gapminder_V3.ipynb
