@@ -1,3 +1,6 @@
+Main folder for running the code.
+Backup Notes:
+
 Reference:  
 Website: https://datahelpdesk.worldbank.org/knowledgebase/articles/906519-world-bank-country-and-lending-groups (For world bank classification numbers of lower, lower_middle, upper_middle and higher class GNI/capita data)
 Website:Slack Channel
