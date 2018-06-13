@@ -20,4 +20,6 @@ Book: Python for Data Analyst
 
 Main folder for running the coder: Gapminder-Exploring-Socio-Economic-Behaviours/Investigate Dataset Project/investigate-a-dataset-template.ipynb
 
-Final Notebook inside the folder: investigate-a-dataset-Gapminder_V3.ipynb
+Final Notebook inside the folder: investigate-a-dataset-Gapminder_V4.ipynb
+
+13-Jun: Updated the notebook with V4 (Changes after 1st Review)
